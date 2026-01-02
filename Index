@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sentença Verde - Gestão Humanizada</title>
+    <title>Sentença Verde - Monitoramento Acústico</title>
     <!-- Tailwind CSS para design moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Lucide Icons para ícones intuitivos -->
@@ -14,17 +14,22 @@
         body { font-family: 'Inter', sans-serif; }
         .font-serif { font-family: 'Playfair Display', serif; }
 
-        @keyframes scan {
-            0% { transform: translateY(0); opacity: 0; }
-            50% { opacity: 1; }
-            100% { transform: translateY(100px); opacity: 0; }
+        @keyframes wave {
+            0% { height: 5px; }
+            50% { height: 25px; }
+            100% { height: 5px; }
         }
-        .scan-line {
-            height: 2px;
+        .audio-bar {
+            width: 3px;
             background: #10b981;
-            box-shadow: 0 0 15px #10b981;
-            animation: scan 2s infinite linear;
+            margin: 0 1px;
+            display: inline-block;
+            animation: wave 1.2s infinite ease-in-out;
         }
+        .audio-bar:nth-child(2) { animation-delay: 0.1s; }
+        .audio-bar:nth-child(3) { animation-delay: 0.2s; }
+        .audio-bar:nth-child(4) { animation-delay: 0.3s; }
+        .audio-bar:nth-child(5) { animation-delay: 0.4s; }
     </style>
 </head>
 <body class="bg-stone-50 text-stone-800">
@@ -34,23 +39,23 @@
         <aside class="w-72 bg-emerald-900 text-emerald-50 flex flex-col shadow-2xl z-20">
             <div class="p-8 flex items-center gap-3">
                 <div class="bg-emerald-500 p-2 rounded-lg shadow-inner">
-                    <i data-lucide="leaf" class="text-white"></i>
+                    <i data-lucide="mic" class="text-white"></i>
                 </div>
                 <h1 class="text-2xl font-serif font-bold tracking-tight">Sentença Verde</h1>
             </div>
             
             <nav class="flex-1 px-4 space-y-1">
                 <button class="w-full flex items-center gap-3 p-4 rounded-xl bg-emerald-800 shadow-md text-white transition-all">
-                    <i data-lucide="layout-dashboard"></i> Painel Geral
+                    <i data-lucide="layout-dashboard"></i> Painel Acústico
                 </button>
                 <button class="w-full flex items-center gap-3 p-4 rounded-xl hover:bg-emerald-800/50 transition-all text-emerald-100">
-                    <i data-lucide="users"></i> Lista de Internos
+                    <i data-lucide="users"></i> Gestão de Internos
                 </button>
                 <button class="w-full flex items-center gap-3 p-4 rounded-xl hover:bg-emerald-800/50 transition-all text-emerald-100">
-                    <i data-lucide="radio"></i> Monitoramento RFID
+                    <i data-lucide="ear"></i> Escuta Ativa IA
                 </button>
                 <button class="w-full flex items-center gap-3 p-4 rounded-xl hover:bg-emerald-800/50 transition-all text-emerald-100">
-                    <i data-lucide="activity"></i> Relatórios de Lotação
+                    <i data-lucide="alert-circle"></i> Incidentes Sonoros
                 </button>
             </nav>
 
@@ -58,8 +63,8 @@
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-10 h-10 rounded-full bg-emerald-700 flex items-center justify-center font-bold border border-emerald-500">ADM</div>
                     <div>
-                        <p class="text-sm font-bold leading-none">Gestor Unidade</p>
-                        <p class="text-xs text-emerald-400">Sistema Online</p>
+                        <p class="text-sm font-bold leading-none">Supervisor</p>
+                        <p class="text-xs text-emerald-400">Monitoramento Ativo</p>
                     </div>
                 </div>
             </div>
@@ -69,89 +74,86 @@
         <main class="flex-1 overflow-y-auto p-10 relative">
             <header class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-4">
                 <div>
-                    <span class="text-emerald-600 font-bold text-sm tracking-widest uppercase">Bio-Monitoramento</span>
-                    <h2 class="text-4xl font-serif font-black text-stone-900 mt-1">Gestão de Harmonia</h2>
+                    <span class="text-emerald-600 font-bold text-sm tracking-widest uppercase">Inteligência Sensorial</span>
+                    <h2 class="text-4xl font-serif font-black text-stone-900 mt-1">Análise de Ambiente</h2>
                 </div>
                 <div class="flex gap-4">
                     <button onclick="abrirVerificacao()" class="flex items-center gap-2 bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-4 rounded-2xl font-bold shadow-lg shadow-emerald-200 transition-all transform active:scale-95">
-                        <i data-lucide="fingerprint"></i> Validar Presença Ativa
+                        <i data-lucide="fingerprint"></i> Validar Identidade
                     </button>
                 </div>
             </header>
 
-            <!-- Cards de Status de Ocupação -->
+            <!-- Status de Som por Ala -->
             <section class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
                     <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-bold text-stone-800">Setor A - Recuperação</h4>
-                        <span class="text-xs font-bold text-orange-600 bg-orange-50 px-2 py-1 rounded">95% Ocupado</span>
+                        <h4 class="font-bold text-stone-800">Ala Norte - Celas 01-10</h4>
+                        <div class="flex items-center">
+                            <div class="audio-bar"></div><div class="audio-bar"></div><div class="audio-bar"></div>
+                        </div>
                     </div>
-                    <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-5xl font-black text-stone-900">38</span>
-                        <span class="text-stone-400">/ 40 internos</span>
-                    </div>
+                    <p class="text-emerald-600 text-sm font-bold mb-2">Nível Sonoro: Normal (35dB)</p>
                     <div class="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
-                        <div class="bg-orange-500 h-full" style="width: 95%"></div>
+                        <div class="bg-emerald-500 h-full" style="width: 20%"></div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100 border-l-4 border-l-orange-500">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="font-bold text-stone-800">Ala Sul - Celas 11-20</h4>
+                        <div class="flex items-center">
+                            <div class="audio-bar !bg-orange-500"></div><div class="audio-bar !bg-orange-500"></div><div class="audio-bar !bg-orange-500"></div><div class="audio-bar !bg-orange-500"></div>
+                        </div>
+                    </div>
+                    <p class="text-orange-600 text-sm font-bold mb-2">Alerta: Ruído Elevado (75dB)</p>
+                    <div class="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
+                        <div class="bg-orange-500 h-full" style="width: 75%"></div>
                     </div>
                 </div>
 
                 <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
                     <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-bold text-stone-800">Setor B - Residencial</h4>
-                        <span class="text-xs font-bold text-emerald-600 bg-emerald-50 px-2 py-1 rounded">Normal</span>
+                        <h4 class="font-bold text-stone-800">Pátio Central</h4>
+                        <div class="flex items-center">
+                            <div class="audio-bar"></div><div class="audio-bar"></div>
+                        </div>
                     </div>
-                    <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-5xl font-black text-stone-900">42</span>
-                        <span class="text-stone-400">/ 80 internos</span>
-                    </div>
+                    <p class="text-blue-600 text-sm font-bold mb-2">Silêncio / Vazio</p>
                     <div class="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
-                        <div class="bg-emerald-500 h-full" style="width: 52.5%"></div>
-                    </div>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl shadow-sm border border-stone-100">
-                    <div class="flex justify-between items-center mb-4">
-                        <h4 class="font-bold text-stone-800">Setor C - Terapias</h4>
-                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded">Disponível</span>
-                    </div>
-                    <div class="flex items-baseline gap-2 mb-4">
-                        <span class="text-5xl font-black text-stone-900">12</span>
-                        <span class="text-stone-400">/ 30 internos</span>
-                    </div>
-                    <div class="w-full bg-stone-100 h-2 rounded-full overflow-hidden">
-                        <div class="bg-blue-500 h-full" style="width: 40%"></div>
+                        <div class="bg-blue-500 h-full" style="width: 10%"></div>
                     </div>
                 </div>
             </section>
 
-            <!-- Lista de Atividade Recente -->
+            <!-- Logs de Eventos de Áudio -->
             <div class="bg-white rounded-3xl shadow-sm border border-stone-100 overflow-hidden">
                 <div class="p-8 border-b border-stone-50 bg-stone-50/50 flex justify-between items-center">
-                    <h3 class="font-bold text-lg">Check-ins Biométricos Recentes</h3>
-                    <i data-lucide="list-filter" class="text-stone-400 cursor-pointer"></i>
+                    <h3 class="font-bold text-lg">Eventos Acústicos Recentes</h3>
+                    <i data-lucide="mic-2" class="text-stone-400"></i>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full text-left">
                         <thead>
                             <tr class="text-stone-400 text-xs uppercase tracking-widest border-b border-stone-100">
-                                <th class="p-6">Identificador</th>
-                                <th class="p-6">Método Utilizado</th>
-                                <th class="p-6">Local do Sensor</th>
-                                <th class="p-6">Status Bio</th>
+                                <th class="p-6">Origem</th>
+                                <th class="p-6">Tipo de Som Detectado</th>
+                                <th class="p-6">Duração</th>
+                                <th class="p-6">Ação IA</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-stone-50">
-                            <tr class="hover:bg-emerald-50/30 transition-colors">
-                                <td class="p-6 font-bold text-stone-700">Interno #8821</td>
-                                <td class="p-6"><span class="bg-stone-100 text-stone-600 px-3 py-1 rounded-full text-xs font-semibold">Pulseira RFID</span></td>
-                                <td class="p-6 text-stone-500">Refeitório Externo</td>
-                                <td class="p-6 text-emerald-600 font-bold">Estável</td>
+                            <tr class="hover:bg-orange-50 transition-colors">
+                                <td class="p-6 font-bold text-stone-700">Cela 14 (Ala Sul)</td>
+                                <td class="p-6 text-orange-600 font-bold">Pancada em Metal / Objeto</td>
+                                <td class="p-6 text-stone-500">2.4s</td>
+                                <td class="p-6"><span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">Alerta Gerado</span></td>
                             </tr>
                             <tr class="hover:bg-emerald-50/30 transition-colors">
-                                <td class="p-6 font-bold text-stone-700">Interno #3304</td>
-                                <td class="p-6"><span class="bg-stone-100 text-stone-600 px-3 py-1 rounded-full text-xs font-semibold">Digital</span></td>
-                                <td class="p-6 text-stone-500">Enfermaria</td>
-                                <td class="p-6 text-emerald-600 font-bold">Verificado</td>
+                                <td class="p-6 font-bold text-stone-700">Cela 03 (Ala Norte)</td>
+                                <td class="p-6 text-stone-600">Voz (Diálogo Normal)</td>
+                                <td class="p-6 text-stone-500">15s</td>
+                                <td class="p-6"><span class="bg-emerald-100 text-emerald-700 px-3 py-1 rounded-full text-xs font-bold">Ignorado (Privativo)</span></td>
                             </tr>
                         </tbody>
                     </table>
@@ -160,32 +162,29 @@
         </main>
     </div>
 
-    <!-- Modal de Verificação Simulado -->
+    <!-- Modal de Verificação (Mantido para Biometria Digital) -->
     <div id="modal-verificacao" class="hidden fixed inset-0 bg-emerald-950/60 backdrop-blur-md flex items-center justify-center z-50 p-6">
         <div class="bg-white rounded-[2rem] p-12 max-w-lg w-full text-center shadow-2xl relative overflow-hidden">
             <div class="relative w-32 h-32 mx-auto mb-8 border-2 border-emerald-100 rounded-full p-6 bg-emerald-50 text-emerald-600 overflow-hidden">
                 <i data-lucide="fingerprint" class="w-full h-full"></i>
-                <div class="scan-line absolute left-0 right-0 top-0"></div>
             </div>
-            <h3 class="text-3xl font-serif font-black text-stone-900 mb-4">Lendo Digital</h3>
+            <h3 class="text-3xl font-serif font-black text-stone-900 mb-4">Validar Identidade</h3>
             <p class="text-stone-500 text-lg mb-8 leading-relaxed">
-                Aguardando contato com o leitor biométrico para validação do <strong>Sentença Verde</strong>.
+                Utilize a biometria para confirmar a presença do interno para atos administrativos.
             </p>
-            <button onclick="fecharVerificacao()" class="text-stone-400 hover:text-stone-600 font-semibold transition-colors">Cancelar Operação</button>
+            <button onclick="fecharVerificacao()" class="text-stone-400 hover:text-stone-600 font-semibold transition-colors">Cancelar</button>
         </div>
     </div>
 
     <script>
-        // Inicializa ícones Lucide
         lucide.createIcons();
 
         function abrirVerificacao() {
             document.getElementById('modal-verificacao').classList.remove('hidden');
-            // Simula uma leitura de 3 segundos
             setTimeout(() => {
                 fecharVerificacao();
-                alert("Identidade confirmada e presença registrada na Ala A.");
-            }, 3000);
+                alert("Identidade Validada com Sucesso.");
+            }, 2000);
         }
 
         function fecharVerificacao() {
