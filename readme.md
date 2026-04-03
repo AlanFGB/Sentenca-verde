@@ -26,3 +26,5 @@ Monitoramento Não Invasivo: Foco no comportamento acústico e dados de presenç
 Imutabilidade: Registos de incidentes são protegidos contra edição posterior, garantindo transparência institucional.
 
 Ambiente Isolado: O processamento de dados biométricos ocorre em circuito fechado, sem exposição externa.
+
+Rádio comunitária - Aonde não se repete notícias nem músicas durante o ano e nem se apresenta propagandas.
